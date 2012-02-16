@@ -36,6 +36,18 @@ class User < ActiveRecord::Base
     update_attributes(:activation_token => nil, :activation_at => Time.now)
   end
   
+  # Validate the password with the email
+  def self.authenticate(email, password)
+    account = email.to_s
+    user = find(:first, :conditions => ['email = ?', account])
+    user && user.authenticated?(password) ? user : nil
+  end
+
+  #Validate the password
+  def authenticated?(password)
+    encrypted_password == encrypt(password)
+  end
+  
   protected
   def generate_hash(string)
     Digest::SHA1.hexdigest(string)

@@ -1,6 +1,7 @@
 GoogleMap::Application.routes.draw do
   match 'activate/:token' => 'users#activate', :as => 'activate'
-  resources :users
+  match 'login', :controller => 'sessions', :action => 'new'
+  resources :users, :sessions
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
