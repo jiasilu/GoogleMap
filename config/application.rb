@@ -50,10 +50,17 @@ module GoogleMap
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
 
+    # Default host
+    config.action_mailer.default_url_options = {:host => 'localhost:3000'}
+    config.action_mailer.delivery_method = :smtp
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    # Observer
+    config.active_record.observers = :user_observer
+    
   end
 end

@@ -18,11 +18,22 @@ class User < ActiveRecord::Base
   validates_format_of :email,
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   # Password generation
-  before_create :initialize_salt, :encrypt_password
+  before_create :initialize_salt, :encrypt_password, :initialize_activation_token
   
   # Generate new password
   def encrypt(string)
     generate_hash("--#{password_salt}--#{string}--")
+  end
+  
+  # Check the account activation
+  def activated?
+    # When activation_token = nil, it means already activated
+    activation_token.nil?
+  end
+  
+  # Activate account
+  def email_confirm!
+    update_attributes(:activation_token => nil, :activation_at => Time.now)
   end
   
   protected
@@ -39,6 +50,18 @@ class User < ActiveRecord::Base
   def encrypt_password
     return if password.blank?
     self.encrypted_password = encrypt(password)
+  end
+  
+  #generate token
+  def generate_token
+    encrypt(Time.now.to_s.split(//).sort_by {rand}.join)
+  end
+  
+  #generate activation token
+  def initialize_activation_token
+    if new_record?
+      self.activation_token = generate_token
+    end
   end
   
 end

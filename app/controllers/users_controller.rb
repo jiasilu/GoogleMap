@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+  # Activate
+  def activate
+    if @user = User.find_by_activation_token(params[:token])
+      if !@user.activated?
+        @user.email_confirm!
+        flash.now[:notice] = "Activation success!"
+      end
+    end
+  end
+  
   # GET /users
   # GET /users.json
   def index
@@ -39,15 +49,17 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  def create
+  def create 
     @user = User.new(params[:user])
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'Registration success!' }
+        flash[:notice] = 'Registration success!'
+        format.html { redirect_to @user}
         format.json { render json: @user, status: :created, location: @user }
       else
-        format.html { render action: "new", notice: 'Registration fails!' }
+        flash[:notice] = 'Registration fails!'
+        format.html { render action: "new"}
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

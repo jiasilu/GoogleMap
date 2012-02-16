@@ -25,5 +25,29 @@ When /^I click on <(.+)>$/ do |button|
 end
 
 Then /^I should see <(.+)>$/ do |msg|
-  output.messages.should include(msg)
+  page.should have_content msg
+end
+
+Then /^An activation email should be sent to <(.+)>$/ do |email|
+  user = User.find_by_email(email)
+  user.activation_token.should_not be_blank
+  sent = ActionMailer::Base.deliveries.last
+  #sent.subject.should eq("Activation Email")
+  #sent.to.should eq([user.email])
+  #send.body.should =~ /#{user.activation_token}/
+end
+
+Given /^I register with <(.*)\/(.*)\/(.*)>$/ do |username,email,password|
+  @valid_attributes = {
+    :username => username,
+    :email => email,
+    :password => password,
+    :password_confirmation => password
+  }
+  @user = User.create!(@valid_attributes)
+end
+
+When /^I visit the activation link in the <(.*)>$/ do |email|
+  user = User.find_by_email(email)
+  visit activate_url(:token => user.activation_token)
 end

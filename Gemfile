@@ -45,5 +45,6 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'cucumber-rails' 
   gem 'database_cleaner'
+  gem 'mail'
 end
 gem 'bcrypt-ruby'

@@ -168,6 +168,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   jquery-rails
+  mail
   mysql2
   passenger
   rails (= 3.2.0)

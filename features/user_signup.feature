@@ -21,3 +21,9 @@ Feature: Sign up to be a member of GOOD Culture Map
       When I enter <123456> in <Password confirmation>
       When I click on <Create User>
       Then I should see <Registration success!>
+      And An activation email should be sent to <justin@goodinc.com>
+  
+  Scenario: user activate account
+      Given I register with <silu/justin@goodinc.com/password>
+      When I visit the activation link in the <justin@goodinc.com>
+      Then I should see <Activation success!>
