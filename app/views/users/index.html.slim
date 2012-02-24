@@ -9,7 +9,28 @@
         });
       } else {
         alert("bye!");
-      } 
+      };
+      var boxText = document.createElement("div");
+      boxText.innerHTML = "Silu Jia";
+      Gmaps.map.infobox = function(boxText) {
+       return {
+          content: boxText
+         ,disableAutoPan: false
+         ,maxWidth: 0
+         ,pixelOffset: new google.maps.Size(-140, 0)
+         ,zIndex: null
+         ,boxStyle: { 
+           background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/examples/tipbox.gif') no-repeat"
+           ,opacity: 0.75
+           ,width: "280px"
+            }
+         ,closeBoxMargin: "10px 2px 2px 2px"
+         ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+         ,infoBoxClearance: new google.maps.Size(1, 1)
+         ,isHidden: false
+         ,pane: "floatPane"
+         ,enableEventPropagation: false
+      }};
     }
   
     function makeMarkers(data, name) {
@@ -24,6 +45,9 @@
       Gmaps.map.replaceMarkers(items);
     }
     
+
+    
+    
 h1 Culture Map
 .lognew
   - if signed_in?
@@ -33,7 +57,8 @@ h1 Culture Map
   - else
     | Welcome, @user.username
     ||
-    = link_to 'Logout', logout_path  
+    = link_to 'Logout', logout_path, method: :delete
+    = link_to 'Login', new_session_path
 
 br
 table class='mapuser'
@@ -55,5 +80,5 @@ table class='mapuser'
       td = user.latitude
 
   
-= gmaps("markers" => {"data" => @json, "options" => {"list_container" => "markers_list" } })
+= gmaps("markers" => {"data" => @json, "options" => {"list_container" => "markers_list", "custom_infowindow_class" => "yellow"} })
 ul id="markers_list"

@@ -8,10 +8,6 @@ html
     = yield :head
   
   body
-    - if flash[:notice]
-      p style="color: green;text-align: center"
-      = flash[:notice]
-
   .page
     = yield
     = yield :scripts
