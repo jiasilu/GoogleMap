@@ -4,7 +4,7 @@ GoogleMap::Application.routes.draw do
   match 'login', :controller => 'sessions', :action => 'new'
   match 'logout', :controller => 'sessions', :action => 'destroy'
 
-  resources :sessions
+  resources :sessions, :only => [:new, :create, :destroy]
   resources :users do
     resources :g_maps
   end

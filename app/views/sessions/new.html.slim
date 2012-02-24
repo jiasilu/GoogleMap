@@ -10,5 +10,8 @@
     = password_field_tag 'password'
   p
     = submit_tag 'Login'
+    br
+  p New user?
+    = link_to 'Sign up today!', new_user_path
   .backLink
     = link_to 'Home Page', users_path
