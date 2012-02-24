@@ -1,0 +1,14 @@
+body onload="initialize()"
+  .indexList
+    .login
+      = link_to 'Login', new_session_path
+      
+    table
+      tr class="show_users"
+        th User
+        th Email
+      - @users.each do |user|
+        tr
+          td = user.username
+          td = user.email
+  div id="map_canvas" style="width:80%; height:50%"

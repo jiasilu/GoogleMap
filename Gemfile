@@ -48,3 +48,4 @@ group :test, :development do
   gem 'mail'
 end
 gem 'bcrypt-ruby'
+gem 'gmaps4rails'

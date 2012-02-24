@@ -1,0 +1,22 @@
+p id="notice" 
+  = notice
+p
+  b User Name:
+  = @user.username
+p
+  b Email:
+  = @user.email
+p
+  b Address:
+  = @user.address
+p
+  b Longitude:
+  = @user.longitude
+p
+  b Latitude:
+  = @user.latitude
+= link_to 'Edit', edit_user_path(@user)
+||
+= link_to 'Back to home', users_path
+||
+= link_to 'Show my map', user_g_maps_path(@user)

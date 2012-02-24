@@ -1,3 +1,38 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.lognew {
+  float: right;
+}
+
+.mapuser {
+  margin: 0 auto;
+  input {
+    width: 80%;
+    height: 80%;
+  }
+}
+
+.map_container {
+  margin: 15px auto;
+}
+
+.opt {
+  font: italic;
+  display: inline;
+  color: #00ff00;
+}
+
+.searchbox {
+  text-align: center;
+  margin: 15px auto;
+  width: 60%;
+
+  input[type="text"] {
+    width: 450px;
+  }
+}
+
+#markers_list {
+  margin: 15px auto;
+}

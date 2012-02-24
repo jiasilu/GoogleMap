@@ -1,3 +1,21 @@
+@mixin rounded($radius:6px) {
+	padding: 1.6em;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #000000;
+	margin: 0 7%;
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	}
+	
+.page { @include rounded(8px);
+	background-color: #fff; 
+	  h1 {
+	    text-align: center;
+	  }
+	text-align: left;
+	}
+
 body {
   background-color: #fff;
   color: #333;

@@ -1,0 +1,59 @@
+= content_for :head do
+  javascript: 
+    function showMarkers(obj) {
+      var jsonPath;
+      if(obj.checked) {
+        var name = obj.id;
+        $.getJSON("/users.json", function(data){
+          makeMarkers(data,name);
+        });
+      } else {
+        alert("bye!");
+      } 
+    }
+  
+    function makeMarkers(data, name) {
+      var items = [];
+      $.each(data, function(i, object) {
+        $.each(object, function(key, val) {
+          if (key == "description" && val == name) {
+            items.push(object);
+          }
+        });
+      });
+      Gmaps.map.replaceMarkers(items);
+    }
+    
+h1 Culture Map
+.lognew
+  - if signed_in?
+    = link_to 'New User', new_user_path 
+    ||
+    = link_to 'Login', new_session_path
+  - else
+    | Welcome, @user.username
+    ||
+    = link_to 'Logout', logout_path  
+
+br
+table class='mapuser'
+  tr
+    th Select
+    th User
+    th Email
+    th Address
+    th Longitude
+    th Latitude
+  - @users.each do |user|
+    tr
+      td
+        input type='radio' onClick='showMarkers(this)' name='select' id=user.username 
+      td = user.username
+      td = user.email
+      td = user.address
+      td = user.longitude
+      td = user.latitude
+
+  
+= gmaps("markers" => {"data" => @json, "options" => {"list_container" => "markers_list" } })
+ul id="markers_list"

@@ -1,0 +1,14 @@
+= form_tag sessions_path do
+  h1 Login
+  p 
+    = label_tag 'email'
+    br
+    = text_field_tag 'email'
+  p
+    = label_tag 'password'
+    br
+    = password_field_tag 'password'
+  p
+    = submit_tag 'Login'
+  .backLink
+    = link_to 'Home Page', users_path

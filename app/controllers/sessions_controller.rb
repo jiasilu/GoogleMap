@@ -17,4 +17,10 @@ class SessionsController < ApplicationController
 #        deny_access('Login fails! You account has not activated yet, please check your email.')
     end
   end
+  
+  def destroy
+    reset_session
+    flash[:notice] = "You have successfully logged out!"
+    redirect_to users_path
+  end
 end

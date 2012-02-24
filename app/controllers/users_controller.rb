@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  respond_to :json, :html
+  
   # Activate
   def activate
     if @user = User.find_by_activation_token(params[:token])
@@ -11,13 +14,13 @@ class UsersController < ApplicationController
   
   # GET /users
   # GET /users.json
+  
   def index
     @users = User.all
+#    @json = User.all.to_gmaps4rails
+    @json = GMap.all.to_gmaps4rails
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
+    respond_with @json
   end
 
   # GET /users/1
@@ -35,7 +38,6 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -49,15 +51,15 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  def create 
+  def create     
     @user = User.new(params[:user])
-
     respond_to do |format|
       if @user.save
+        sign_user_in(@user)
         flash[:notice] = 'Registration success!'
         format.html { redirect_to @user}
         format.json { render json: @user, status: :created, location: @user }
-      else
+      else 
         flash[:notice] = 'Registration fails!'
         format.html { render action: "new"}
         format.json { render json: @user.errors, status: :unprocessable_entity }

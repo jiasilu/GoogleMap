@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120213220550) do
+ActiveRecord::Schema.define(:version => 20120316221159) do
+
+  create_table "g_maps", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.boolean  "gmaps"
+    t.string   "username"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"
@@ -22,6 +33,10 @@ ActiveRecord::Schema.define(:version => 20120213220550) do
     t.string   "email"
     t.string   "activation_token"
     t.datetime "activation_at"
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.boolean  "gmaps"
   end
 
 end

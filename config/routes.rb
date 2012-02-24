@@ -1,7 +1,20 @@
 GoogleMap::Application.routes.draw do
+  match '/gMap/showMap', :controller => 'gMap', :action => 'showMap'
   match 'activate/:token' => 'users#activate', :as => 'activate'
   match 'login', :controller => 'sessions', :action => 'new'
-  resources :users, :sessions
+  match 'logout', :controller => 'sessions', :action => 'destroy'
+
+  resources :sessions
+  resources :users do
+    resources :g_maps
+  end
+
+  
+  
+  #do
+  #end 
+  #root :to => 'users#index'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -51,7 +64,6 @@ GoogleMap::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

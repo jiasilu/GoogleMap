@@ -1,0 +1,35 @@
+= content_for :head do
+  javascript:
+    $(function(){
+      var gMapForm = $('form.searchbox');
+
+    })
+    
+h1 My Culture Map
+.lognew
+  = link_to 'World Map', users_path 
+  ||
+  = link_to 'Logout', logout_path
+br
+table class='mapuser'
+  tr
+    th Address
+    th Longitude
+    th Latitude
+  - @gMaps.each do |g_map|
+    tr
+      td = g_map.address
+      td = g_map.longitude
+      td = g_map.latitude
+
+= form_for [@user, @newGMap], html: { class: 'searchbox' } do |f|
+  = f.text_field :address
+  = f.submit 'Search'
+
+  / h3 Search a place
+  / input type="text" name
+  / input type="submit" id="add_markers" value="Search"
+  
+= gmaps("markers" => {"data" => @json, "options" => {"list_container" => "markers_list" } })
+/button id="refresh_markers" Refresh Markers
+ul id="markers_list"

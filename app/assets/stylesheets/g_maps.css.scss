@@ -1,0 +1,30 @@
+// Place all the styles related to the gMap controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@mixin rounded($radius:6px) {
+	padding: 1.6em;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #000000;
+	margin: 0 7%;
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	}
+	
+.page { @include rounded(8px);
+	background-color: #fff; 
+	text-align: center;
+	  h1 {
+	    text-align: center;
+	  }
+}
+
+.login {
+  float: right;
+}
+
+#map_canvas {
+  margin : 0 auto;
+  width : 600px;
+  position: relative;
+}
